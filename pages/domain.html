@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Domain | TRIFUSION</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/logo.png" alt="TRIFUSION Logo" class="nav-logo-img"/>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">TRIFUSION</span>
+      <span class="project-id">25-26J-483</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="domain.html">Domain</a></li>
+    <li><a href="milestones.html">Milestones</a></li>
+    <li><a href="documents.html">Documents</a></li>
+    <li><a href="presentations.html">Slides</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Domain</div>
+    <div class="page-header-eyebrow">Research Domain</div>
+    <h1>Project Domain & Literature</h1>
+    <p>An overview of the research landscape, identified gaps, problem statement, objectives, methodology, and technologies used across all four subcomponents.</p>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="section-title-block">
+        <div class="section-eyebrow">01</div>
+        <h2 class="section-title">Literature Survey</h2>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-label">Predictive Maintenance</div>
+        <h3>Existing Solutions</h3>
+        <p>State-of-the-art solutions like PredictiveOps assume stable connectivity and clean datasets. They fail in real-world industrial environments where sensor data is unreliable, incomplete, and context-poor.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">AR in Industry</div>
+        <h3>Current AR Limitations</h3>
+        <p>Existing AR maintenance systems require specialized technical personnel to author guidance content. Automatic action recognition and spatial workflow authoring remain open research challenges.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Fault Diagnosis</div>
+        <h3>Diagnostic Systems Today</h3>
+        <p>Current systems either only predict failure without explaining root causes, or use static problem→solution mappings with no feedback loop or adaptability for new fault types.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Digital Twin</div>
+        <h3>Full Twin vs. Data-Driven</h3>
+        <p>True physics-based digital twins require detailed CAD and materials data. With only temperature, vibration, and noise sensors, a data-driven synthetic simulator is the realistic alternative.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-title-block">
+        <div class="section-eyebrow">02</div>
+        <h2 class="section-title">Research Gap</h2>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-label">IoT Pipeline Gap</div>
+        <h3>Unreliable Raw Data</h3>
+        <p>No pipeline bridges raw industrial IoT sensor data to ML-ready, context-rich datasets with fault-tolerance, redundancy, and intelligent preprocessing in one integrated solution.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">AR Authoring Gap</div>
+        <h3>Manual Workflow Creation</h3>
+        <p>No automatic system exists that can recognize maintenance actions and generate AR overlay workflows without specialized authoring expertise.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Diagnostic Gap</div>
+        <h3>No Guided Resolution</h3>
+        <p>A diagnostic assistant capable of interpreting sensor abnormalities, identifying root causes, and delivering guided step-by-step resolution instructions does not yet exist in a unified system.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Predictive Gap</div>
+        <h3>Black-Box Predictions</h3>
+        <p>Existing predictive systems lack explainability, uncertainty quantification, and technician feedback loops — making them untrustworthy in production environments.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-title-block">
+        <div class="section-eyebrow">03</div>
+        <h2 class="section-title">Research Problem</h2>
+      </div>
+    </div>
+    <div class="card" style="max-width:800px">
+      <p style="font-size:15px; line-height:1.9; color:var(--text-primary)">
+        Industrial machinery maintenance at facilities like Haycarb PLC relies on manual inspection and reactive repair, leading to costly unplanned downtime. Existing predictive maintenance tools are siloed, untrustworthy black boxes that lack real-time AR guidance, intelligent fault diagnosis, and resilient IoT data pipelines — preventing technicians from acting on accurate, explainable predictions in the field.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-title-block">
+        <div class="section-eyebrow">04</div>
+        <h2 class="section-title">Research Objectives</h2>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">1</div>
+        <h3>Fault-Tolerant IoT Pipeline</h3>
+        <p>Design a resilient sensor pipeline using redundant hardware, dual-mode communication, and intelligent preprocessing to ensure &gt;90% data availability for ML models.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">2</div>
+        <h3>Automatic AR Workflow Authoring</h3>
+        <p>Build an action-recognition-based system that auto-generates AR maintenance guidance overlays without requiring specialized technical expertise to create them.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">3</div>
+        <h3>NLP-Driven Fault Diagnosis</h3>
+        <p>Develop IFDRA — an NLP + LSTM assistant that interprets technician queries, classifies faults from sensor data, and delivers guided resolution steps with a continuous feedback loop.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">4</div>
+        <h3>Explainable Predictive Maintenance</h3>
+        <p>Implement a data-driven virtual replica with XAI explanations, uncertainty-aware confidence scores, and technician feedback integration to continuously improve model accuracy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-title-block">
+        <div class="section-eyebrow">05</div>
+        <h2 class="section-title">Methodology</h2>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-label">IoT Edge Layer</div>
+        <h3>Data Acquisition</h3>
+        <ul>
+          <li>ESP32 NodeMCU gateway</li>
+          <li>Redundant sensors (ADXL345, MPU6050, DHT22, KY-037)</li>
+          <li>Cross-sensor verification for drift detection</li>
+          <li>Dual-mode: Wi-Fi General + GSM Emergency</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">Cloud Preprocessing</div>
+        <h3>Intelligent Pipeline</h3>
+        <ul>
+          <li>Filtering: moving averages, Fourier transform</li>
+          <li>Timestamp synchronization & imputation</li>
+          <li>Feature engineering: statistical, spectral, trend</li>
+          <li>Metadata enrichment with trust scores</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">AR System</div>
+        <h3>Authoring & Playback</h3>
+        <ul>
+          <li>Action recognition using HG14 / EGO4D datasets</li>
+          <li>Spatial anchors via Meta Quest 3S SDK</li>
+          <li>JSON DSL workflow storage</li>
+          <li>Unity + A-Frame rendering</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-label">AI Models</div>
+        <h3>Diagnosis & Prediction</h3>
+        <ul>
+          <li>LSTM for sequential fault classification</li>
+          <li>Transformer NLP for symptom intent mapping</li>
+          <li>RandomForest → TCN/Transformer for prediction</li>
+          <li>XAI for sensor contribution explanations</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <div class="section-title-block">
+        <div class="section-eyebrow">06</div>
+        <h2 class="section-title">Technologies Used</h2>
+      </div>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-label">Hardware</div>
+        <h3>IoT & AR Devices</h3>
+        <div class="tech-list">
+          <span class="tech-pill">ESP32 NodeMCU</span>
+          <span class="tech-pill">ADXL345</span>
+          <span class="tech-pill">MPU6050</span>
+          <span class="tech-pill">DHT22</span>
+          <span class="tech-pill">KY-037</span>
+          <span class="tech-pill">SIM800L GSM</span>
+          <span class="tech-pill">Meta Quest 3S</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Backend</div>
+        <h3>Cloud & Data</h3>
+        <div class="tech-list">
+          <span class="tech-pill">Firebase</span>
+          <span class="tech-pill">MongoDB</span>
+          <span class="tech-pill">TimescaleDB</span>
+          <span class="tech-pill">NestJS</span>
+          <span class="tech-pill">Python</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Frontend</div>
+        <h3>UI & Visualization</h3>
+        <div class="tech-list">
+          <span class="tech-pill">React</span>
+          <span class="tech-pill">Flutter</span>
+          <span class="tech-pill">Unity</span>
+          <span class="tech-pill">A-Frame</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">AI / ML</div>
+        <h3>Models & Frameworks</h3>
+        <div class="tech-list">
+          <span class="tech-pill">LSTM</span>
+          <span class="tech-pill">Transformer</span>
+          <span class="tech-pill">RandomForest</span>
+          <span class="tech-pill">TCN</span>
+          <span class="tech-pill">XAI (SHAP)</span>
+          <span class="tech-pill">CWRU Dataset</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">© 2025–2026 <strong style="color:var(--text-primary)">TRIFUSION</strong> · Project 25-26J-483 · SLIIT · CDAP</div>
+    <div class="footer-right">AR–AI Guided Maintenance with IoT Monitoring for Industrial Machinery</div>
+  </footer>
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

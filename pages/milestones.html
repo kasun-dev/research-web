@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Milestones | TRIFUSION</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../images/logo.png" alt="TRIFUSION Logo" class="nav-logo-img"/>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">TRIFUSION</span>
+      <span class="project-id">25-26J-483</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="domain.html">Domain</a></li>
+    <li><a href="milestones.html">Milestones</a></li>
+    <li><a href="documents.html">Documents</a></li>
+    <li><a href="presentations.html">Slides</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page">
+  <div class="page-header">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / Milestones</div>
+    <div class="page-header-eyebrow">Assessments</div>
+    <h1>Project Milestones</h1>
+    <p>All assessments, submission dates, and marks allocated. Use the filter below to view by status.</p>
+  </div>
+
+  <section class="section">
+
+    <!-- Filter -->
+    <div style="display:flex; gap:10px; margin-bottom:40px; flex-wrap:wrap;">
+      <button class="filter-btn active" data-filter="all"
+        style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:2px;border:1px solid var(--border);background:rgba(0,212,255,0.1);color:var(--accent-cyan);cursor:pointer;">
+        ALL
+      </button>
+      <button class="filter-btn" data-filter="done"
+        style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:2px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;">
+        COMPLETED
+      </button>
+      <button class="filter-btn" data-filter="upcoming"
+        style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:2px;border:1px solid var(--border);background:transparent;color:var(--text-muted);cursor:pointer;">
+        UPCOMING
+      </button>
+    </div>
+
+    <div class="milestone-list" id="milestoneList">
+
+      <div class="milestone-item" data-status="done">
+        <div>
+          <div class="milestone-name">Project Proposal</div>
+          <div class="milestone-desc">Initial proposal document and presentation to CDAP panel. Clarification document submitted post-presentation.</div>
+        </div>
+        <div class="milestone-date">Sep 12, 2025</div>
+        <div class="milestone-marks"><!-- Add marks --><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+        <span class="badge badge-done">Completed</span>
+      </div>
+
+      <div class="milestone-item" data-status="done">
+        <div>
+          <div class="milestone-name">Progress Presentation I</div>
+          <div class="milestone-desc">First progress check-in demonstrating initial implementation and prototype components.</div>
+        </div>
+        <div class="milestone-date"><!-- Add date --><span style="color:var(--text-dim)">Date TBC</span></div>
+        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+        <span class="badge badge-done">Completed</span>
+      </div>
+
+      <div class="milestone-item" data-status="upcoming">
+        <div>
+          <div class="milestone-name">Progress Presentation II</div>
+          <div class="milestone-desc">Second progress presentation covering integrated system demo and evaluation results.</div>
+        </div>
+        <div class="milestone-date"><span style="color:var(--text-dim)">Date TBC</span></div>
+        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+        <span class="badge badge-upcoming">Upcoming</span>
+      </div>
+
+      <div class="milestone-item" data-status="upcoming">
+        <div>
+          <div class="milestone-name">Final Assessment</div>
+          <div class="milestone-desc">Complete system demonstration, final document submission, and overall project evaluation.</div>
+        </div>
+        <div class="milestone-date"><span style="color:var(--text-dim)">2026</span></div>
+        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+        <span class="badge badge-upcoming">Upcoming</span>
+      </div>
+
+      <div class="milestone-item" data-status="upcoming">
+        <div>
+          <div class="milestone-name">Viva Voce</div>
+          <div class="milestone-desc">Individual oral examination covering each member's subcomponent in depth.</div>
+        </div>
+        <div class="milestone-date"><span style="color:var(--text-dim)">2026</span></div>
+        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+        <span class="badge badge-upcoming">Upcoming</span>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">© 2025–2026 <strong style="color:var(--text-primary)">TRIFUSION</strong> · Project 25-26J-483 · SLIIT · CDAP</div>
+    <div class="footer-right">AR–AI Guided Maintenance with IoT Monitoring for Industrial Machinery</div>
+  </footer>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const items = document.querySelectorAll('.milestone-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.style.background = 'transparent';
+        b.style.color = 'var(--text-muted)';
+      });
+      btn.style.background = 'rgba(0,212,255,0.1)';
+      btn.style.color = 'var(--accent-cyan)';
+
+      const filter = btn.dataset.filter;
+      items.forEach(item => {
+        item.style.display = (filter === 'all' || item.dataset.status === filter) ? 'grid' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
