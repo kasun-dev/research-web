@@ -5,6 +5,256 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Milestones | TRIFUSION</title>
   <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    /* --- CENTERED ALTERNATING TIMELINE STYLES --- */
+    
+    .milestone-list {
+      position: relative;
+      padding: 40px 0;
+      margin-top: 20px;
+    }
+
+    /* The central vertical line */
+    .milestone-list::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+      opacity: 0.5;
+    }
+
+    /* Stripped old styles from style.css using overrides */
+    .milestone-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; /* Aligns dot, time, and card vertically */
+      width: 100%;
+      margin-bottom: 60px;
+      position: relative;
+      transition: all 0.3s ease;
+      
+      /* --- OVERRIDES --- */
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+    }
+    
+    /* Override any old hover effects on the main row */
+    .milestone-item:hover {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    /* Odd items (Left Side Time, Right Side Card) */
+    .milestone-item:nth-child(odd) {
+      flex-direction: row;
+    }
+    
+    /* Even items (Right Side Time, Left Side Card) */
+    .milestone-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    /* --- Time Column --- */
+    .milestone-time-col {
+      width: calc(50% - 40px); /* Leaves space for the center dot */
+    }
+    
+    /* Align time towards the center line */
+    .milestone-item:nth-child(odd) .milestone-time-col {
+      text-align: right;
+    }
+    .milestone-item:nth-child(even) .milestone-time-col {
+      text-align: left;
+    }
+
+    .milestone-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: rgba(0, 212, 255, 0.05);
+      padding: 8px 16px;
+      border-radius: 4px;
+      display: inline-block;
+      border: 1px solid rgba(0, 212, 255, 0.1);
+    }
+
+    /* --- Dot Column --- */
+    .milestone-dot-col {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      display: flex;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--background, #111); /* Fallback to dark if var not set */
+      border: 3px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .milestone-item[data-status="done"] .dot {
+      background: var(--accent-cyan);
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+    }
+
+    /* --- Content Card --- */
+    .milestone-content-col {
+      width: calc(50% - 40px);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      padding: 25px;
+      border-radius: 8px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    /* Pointer arrows pointing to the center */
+    .milestone-item:nth-child(odd) .milestone-content-col::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -9px;
+      transform: translateY(-50%);
+      border-width: 9px 9px 9px 0;
+      border-style: solid;
+      border-color: transparent var(--border) transparent transparent;
+      transition: all 0.3s ease;
+    }
+    .milestone-item:nth-child(even) .milestone-content-col::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -9px;
+      transform: translateY(-50%);
+      border-width: 9px 0 9px 9px;
+      border-style: solid;
+      border-color: transparent transparent transparent var(--border);
+      transition: all 0.3s ease;
+    }
+    /* Inner arrows to hide border overlap */
+    .milestone-item:nth-child(odd) .milestone-content-col::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -7px;
+      transform: translateY(-50%);
+      border-width: 8px 8px 8px 0;
+      border-style: solid;
+      border-color: transparent var(--background, #111) transparent transparent;
+    }
+    .milestone-item:nth-child(even) .milestone-content-col::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -7px;
+      transform: translateY(-50%);
+      border-width: 8px 0 8px 8px;
+      border-style: solid;
+      border-color: transparent transparent transparent var(--background, #111);
+    }
+
+    /* Hover interactions (Now only applies to the card itself) */
+    .milestone-item:hover .milestone-content-col {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--accent-cyan);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .milestone-item:hover:nth-child(odd) .milestone-content-col::before {
+      border-color: transparent var(--accent-cyan) transparent transparent;
+    }
+    .milestone-item:hover:nth-child(even) .milestone-content-col::before {
+      border-color: transparent transparent transparent var(--accent-cyan);
+    }
+
+    .milestone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 15px;
+    }
+
+    .milestone-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .milestone-desc {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 15px;
+    }
+
+    .milestone-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    /* --- RESPONSIVE MOBILE FIX --- */
+    @media (max-width: 768px) {
+      .milestone-list::before { 
+        left: 30px; 
+      }
+      .milestone-item, 
+      .milestone-item:nth-child(even), 
+      .milestone-item:nth-child(odd) {
+        flex-direction: column;
+        align-items: flex-start;
+        /* FIX: Ensure mobile padding overrides the desktop reset */
+        padding: 0 0 0 70px !important; 
+        position: relative;
+        margin-bottom: 40px !important;
+      }
+      .milestone-time-col,
+      .milestone-content-col {
+        width: 100%;
+        text-align: left !important;
+      }
+      .milestone-time-col {
+        margin-bottom: 15px;
+      }
+      .milestone-date {
+        font-size: 12px;
+        padding: 4px 10px;
+      }
+      .milestone-dot-col {
+        left: 30px;
+        top: 0;
+        transform: translateX(-50%);
+        align-items: flex-start;
+        padding-top: 4px;
+      }
+      /* Hide the pointer arrows on mobile */
+      .milestone-content-col::before,
+      .milestone-content-col::after {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -38,8 +288,7 @@
 
   <section class="section">
 
-    <!-- Filter -->
-    <div style="display:flex; gap:10px; margin-bottom:40px; flex-wrap:wrap;">
+    <div style="display:flex; gap:10px; margin-bottom:60px; flex-wrap:wrap;">
       <button class="filter-btn active" data-filter="all"
         style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:2px;border:1px solid var(--border);background:rgba(0,212,255,0.1);color:var(--accent-cyan);cursor:pointer;">
         ALL
@@ -57,53 +306,155 @@
     <div class="milestone-list" id="milestoneList">
 
       <div class="milestone-item" data-status="done">
-        <div>
-          <div class="milestone-name">Project Proposal</div>
-          <div class="milestone-desc">Initial proposal document and presentation to CDAP panel. Clarification document submitted post-presentation.</div>
+        <div class="milestone-time-col">
+          <div class="milestone-date">25 Mar 2025</div>
         </div>
-        <div class="milestone-date">Sep 12, 2025</div>
-        <div class="milestone-marks"><!-- Add marks --><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
-        <span class="badge badge-done">Completed</span>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Brainstorming Workshop</div>
+            <span class="badge badge-done">Completed</span>
+          </div>
+          <div class="milestone-desc">Initial ideation and project brainstorming phase to define the AR-AI industrial maintenance scope.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="milestone-item" data-status="done">
-        <div>
-          <div class="milestone-name">Progress Presentation I</div>
-          <div class="milestone-desc">First progress check-in demonstrating initial implementation and prototype components.</div>
+        <div class="milestone-time-col">
+          <div class="milestone-date">26 May 2025</div>
         </div>
-        <div class="milestone-date"><!-- Add date --><span style="color:var(--text-dim)">Date TBC</span></div>
-        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
-        <span class="badge badge-done">Completed</span>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Group Registration</div>
+            <span class="badge badge-done">Completed</span>
+          </div>
+          <div class="milestone-desc">Formal registration of the TRIFUSION project group with SLIIT CDAP.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-item" data-status="done">
+        <div class="milestone-time-col">
+          <div class="milestone-date">Jul 2025</div>
+        </div>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Topic Assessment Form (TAF)</div>
+            <span class="badge badge-done">Completed</span>
+          </div>
+          <div class="milestone-desc">Submission and approval of the research topic and specialized sub-components.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-item" data-status="done">
+        <div class="milestone-time-col">
+          <div class="milestone-date">Sep 2025</div>
+        </div>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Proposal Presentation & Final Report</div>
+            <span class="badge badge-done">Completed</span>
+          </div>
+          <div class="milestone-desc">Submission of the formal project proposal and successful defense before the assessment panel.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-item" data-status="done">
+        <div class="milestone-time-col">
+          <div class="milestone-date">Dec 2025</div>
+        </div>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Progress Presentation I</div>
+            <span class="badge badge-done">Completed</span>
+          </div>
+          <div class="milestone-desc">Demonstration of initial prototypes, IoT sensor integration, and AR interface wireframes.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-item" data-status="done">
+        <div class="milestone-time-col">
+          <div class="milestone-date">Mar 2026</div>
+        </div>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Progress Presentation II</div>
+            <span class="badge badge-done">Completed</span>
+          </div>
+          <div class="milestone-desc">Second defense covering AI model accuracy, real-time IoT monitoring data, and system evaluation.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="milestone-item" data-status="upcoming">
-        <div>
-          <div class="milestone-name">Progress Presentation II</div>
-          <div class="milestone-desc">Second progress presentation covering integrated system demo and evaluation results.</div>
+        <div class="milestone-time-col">
+          <div class="milestone-date">May 2026</div>
         </div>
-        <div class="milestone-date"><span style="color:var(--text-dim)">Date TBC</span></div>
-        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
-        <span class="badge badge-upcoming">Upcoming</span>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
+        </div>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Final Presentation & VIVA</div>
+            <span class="badge badge-upcoming">Upcoming</span>
+          </div>
+          <div class="milestone-desc">The final defense and individual oral examination of the completed TRIFUSION system.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="milestone-item" data-status="upcoming">
-        <div>
-          <div class="milestone-name">Final Assessment</div>
-          <div class="milestone-desc">Complete system demonstration, final document submission, and overall project evaluation.</div>
+        <div class="milestone-time-col">
+          <div class="milestone-date">Jun 2026</div>
         </div>
-        <div class="milestone-date"><span style="color:var(--text-dim)">2026</span></div>
-        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
-        <span class="badge badge-upcoming">Upcoming</span>
-      </div>
-
-      <div class="milestone-item" data-status="upcoming">
-        <div>
-          <div class="milestone-name">Viva Voce</div>
-          <div class="milestone-desc">Individual oral examination covering each member's subcomponent in depth.</div>
+        <div class="milestone-dot-col">
+          <div class="dot"></div>
         </div>
-        <div class="milestone-date"><span style="color:var(--text-dim)">2026</span></div>
-        <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
-        <span class="badge badge-upcoming">Upcoming</span>
+        <div class="milestone-content-col">
+          <div class="milestone-header">
+            <div class="milestone-name">Project Website & Logbook</div>
+            <span class="badge badge-upcoming">Upcoming</span>
+          </div>
+          <div class="milestone-desc">Final submission of the research logbooks and the public-facing project showcase website.</div>
+          <div class="milestone-footer">
+            <div class="milestone-marks"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-muted)">Marks TBC</span></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -122,16 +473,23 @@
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
+      // Reset filter button styles
       filterBtns.forEach(b => {
         b.style.background = 'transparent';
         b.style.color = 'var(--text-muted)';
       });
+      // Set active button style
       btn.style.background = 'rgba(0,212,255,0.1)';
       btn.style.color = 'var(--accent-cyan)';
 
       const filter = btn.dataset.filter;
       items.forEach(item => {
-        item.style.display = (filter === 'all' || item.dataset.status === filter) ? 'grid' : 'none';
+        // Timeline filtering logic
+        if (filter === 'all' || item.dataset.status === filter) {
+            item.style.display = 'flex';
+        } else {
+            item.style.display = 'none';
+        }
       });
     });
   });
