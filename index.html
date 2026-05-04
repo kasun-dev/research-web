@@ -5,6 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TRIFUSION | AR-AI Guided Maintenance</title>
   <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* --- ENLARGE DIAGRAM ON DESKTOP --- */
+    @media (min-width: 1024px) {
+      .hero-visual svg {
+        transform: scale(1.35); /* Increases the size by 35% */
+        transform-origin: right center; /* Anchors it to the right side */
+      }
+    }
+
+    /* --- DATA FLOW LINE ANIMATION --- */
+    @keyframes flow-forward {
+      from { stroke-dashoffset: 12; }
+      to { stroke-dashoffset: 0; }
+    }
+    
+    .flow-line {
+      stroke-dasharray: 4 4; 
+      animation: flow-forward 0.8s linear infinite; 
+    }
+
+    /* --- SEQUENTIAL NODE GLOW ANIMATION --- */
+    @keyframes glow-orange {
+      0%, 100% { stroke: #1e2d4a; filter: none; }
+      10%, 25% { stroke: #ff6b35; filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.8)); }
+      35% { stroke: #1e2d4a; filter: none; }
+    }
+    @keyframes glow-cyan {
+      0%, 100% { stroke: #1e2d4a; filter: none; }
+      10%, 25% { stroke: #00d4ff; filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.8)); }
+      35% { stroke: #1e2d4a; filter: none; }
+    }
+    @keyframes glow-green {
+      0%, 100% { stroke: #1e2d4a; filter: none; }
+      10%, 25% { stroke: #00ff9d; filter: drop-shadow(0 0 10px rgba(0, 255, 157, 0.8)); }
+      35% { stroke: #1e2d4a; filter: none; }
+    }
+
+    /* Assign base animations (6-second loop) */
+    .node-orange { animation: glow-orange 6s infinite; }
+    .node-cyan   { animation: glow-cyan 6s infinite; }
+    .node-green  { animation: glow-green 6s infinite; }
+
+    /* Sequence delays matching the architecture flow */
+    .delay-1 { animation-delay: 0.0s; } /* Machinery */
+    .delay-2 { animation-delay: 0.5s; } /* Sensor */
+    .delay-3 { animation-delay: 1.0s; } /* Lambda 1 */
+    .delay-4 { animation-delay: 1.5s; } /* Dynamo DB */
+    .delay-5 { animation-delay: 2.0s; } /* Lambda 2 */
+    .delay-6 { animation-delay: 2.5s; } /* Backend API Main Box */
+    .delay-7 { animation-delay: 3.0s; } /* Internal Modules */
+    .delay-8 { animation-delay: 3.5s; } /* DBs & Compilers */
+    .delay-9 { animation-delay: 4.0s; } /* AR & Frontends */
+  </style>
 </head>
 <body>
 
@@ -86,55 +139,160 @@
       </div>
     </div>
 
-    <!-- Inline SVG system diagram -->
+    <!-- UPDATED Inline SVG system diagram -->
     <div class="hero-visual">
-      <svg viewBox="0 0 360 340" xmlns="http://www.w3.org/2000/svg" width="100%">
+      <svg viewBox="0 0 620 420" xmlns="http://www.w3.org/2000/svg" width="100%">
         <defs>
-          <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <!-- Forward Arrows -->
+          <marker id="arrow-cyan" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
             <path d="M0,0 L6,3 L0,6 Z" fill="#00d4ff" opacity="0.6"/>
           </marker>
+          <marker id="arrow-orange" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#ff6b35" opacity="0.6"/>
+          </marker>
+          <!-- Reverse Arrows for Bidirectional lines -->
+          <marker id="arrow-green-rev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto">
+            <path d="M6,0 L0,3 L6,6 Z" fill="#00ff9d" opacity="0.6"/>
+          </marker>
         </defs>
-        <!-- Sensors -->
-        <rect x="10" y="130" width="70" height="80" rx="3" fill="#131d2e" stroke="#1e2d4a"/>
-        <text x="45" y="162" text-anchor="middle" font-family="Orbitron" font-size="7" fill="#00d4ff">SENSORS</text>
-        <text x="45" y="178" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Vibration</text>
-        <text x="45" y="190" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Temp/Hum</text>
-        <text x="45" y="202" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Acoustic</text>
 
-        <!-- ESP32 -->
-        <rect x="100" y="140" width="70" height="60" rx="3" fill="#131d2e" stroke="#1e2d4a"/>
-        <text x="135" y="166" text-anchor="middle" font-family="Orbitron" font-size="6.5" fill="#ff6b35">ESP32</text>
-        <text x="135" y="180" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">NodeMCU</text>
-        <text x="135" y="192" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Edge Layer</text>
+        <!-- ==========================================
+             DATA SOURCE LAYER (Top Left) 
+        =========================================== -->
+        
+        <!-- Machinery -->
+        <rect x="10" y="20" width="80" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-orange delay-1"/>
+        <text x="50" y="43" text-anchor="middle" font-family="Orbitron" font-size="9" fill="#ff6b35">MACHINERY</text>
 
-        <!-- Cloud -->
-        <rect x="190" y="120" width="80" height="100" rx="3" fill="#131d2e" stroke="#1e2d4a"/>
-        <text x="230" y="146" text-anchor="middle" font-family="Orbitron" font-size="6.5" fill="#00d4ff">CLOUD</text>
-        <text x="230" y="161" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Firebase</text>
-        <text x="230" y="173" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">MongoDB</text>
-        <text x="230" y="185" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">NestJS</text>
-        <text x="230" y="197" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Preprocessing</text>
-        <text x="230" y="209" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">LSTM / XAI</text>
+        <!-- Sensor System -->
+        <rect x="120" y="20" width="80" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-orange delay-2"/>
+        <text x="160" y="38" text-anchor="middle" font-family="Orbitron" font-size="9" fill="#ff6b35">SENSOR</text>
+        <text x="160" y="49" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#6b7a99">System</text>
 
-        <!-- AR -->
-        <rect x="285" y="50" width="70" height="50" rx="3" fill="#131d2e" stroke="#1e2d4a"/>
-        <text x="320" y="72" text-anchor="middle" font-family="Orbitron" font-size="6.5" fill="#00ff9d">AR HMD</text>
-        <text x="320" y="86" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Meta Quest 3S</text>
+        <!-- AWS Lambda 1 (Preprocessing) -->
+        <rect x="230" y="20" width="100" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-3"/>
+        <text x="280" y="38" text-anchor="middle" font-family="Orbitron" font-size="9" fill="#00d4ff">AWS LAMBDA</text>
+        <text x="280" y="49" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#6b7a99">(Preprocessing)</text>
 
-        <!-- Technician UI -->
-        <rect x="285" y="200" width="70" height="50" rx="3" fill="#131d2e" stroke="#1e2d4a"/>
-        <text x="320" y="220" text-anchor="middle" font-family="Orbitron" font-size="6" fill="#ff6b35">TECH UI</text>
-        <text x="320" y="234" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">React/Flutter</text>
-        <text x="320" y="246" text-anchor="middle" font-family="IBM Plex Mono" font-size="6" fill="#6b7a99">Dashboard</text>
+        <!-- Dynamo DB -->
+        <rect x="360" y="10" width="100" height="60" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-4"/>
+        <text x="410" y="38" text-anchor="middle" font-family="Orbitron" font-size="9" fill="#00d4ff">DYNAMO DB</text>
+        <text x="410" y="50" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#6b7a99">(AWS Cloud)</text>
 
-        <!-- Arrows -->
-        <line x1="80" y1="170" x2="98" y2="170" stroke="#00d4ff" stroke-width="1" marker-end="url(#arrow)" opacity="0.6"/>
-        <line x1="170" y1="170" x2="188" y2="170" stroke="#00d4ff" stroke-width="1" marker-end="url(#arrow)" opacity="0.6"/>
-        <line x1="270" y1="145" x2="283" y2="100" stroke="#00ff9d" stroke-width="1" marker-end="url(#arrow)" opacity="0.6"/>
-        <line x1="270" y1="190" x2="283" y2="215" stroke="#ff6b35" stroke-width="1" marker-end="url(#arrow)" opacity="0.6"/>
+        <!-- AWS Lambda 2 (Preprocessing) -->
+        <rect x="490" y="80" width="100" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-5"/>
+        <text x="540" y="98" text-anchor="middle" font-family="Orbitron" font-size="9" fill="#00d4ff">AWS LAMBDA</text>
+        <text x="540" y="109" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#6b7a99">(Preprocessing)</text>
 
-        <!-- Label lines -->
-        <text x="180" y="270" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="#3a4560">──── System Architecture ────</text>
+
+        <!-- ==========================================
+             CORE BACKEND LAYER (Center) 
+        =========================================== -->
+
+        <!-- Backend API Container Box -->
+        <rect x="210" y="140" width="250" height="160" rx="6" fill="#0b111c" stroke="#1e2d4a" stroke-width="1.5" class="node-cyan delay-6"/>
+        <text x="335" y="285" text-anchor="middle" font-family="Orbitron" font-size="10" fill="#00d4ff">BACKEND API</text>
+        <text x="335" y="271" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#6b7a99">(Fast API)</text>
+
+        <!-- IFDRA Module -->
+        <rect x="225" y="160" width="100" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-7"/>
+        <text x="275" y="178" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00d4ff">IFDRA</text>
+        <text x="275" y="189" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Module</text>
+
+        <!-- Predictive Maintenance Module -->
+        <rect x="340" y="160" width="105" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-7"/>
+        <text x="392.5" y="178" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00d4ff">PREDICTIVE</text>
+        <text x="392.5" y="189" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Maintenance</text>
+
+        <!-- FFMPEG -->
+        <rect x="225" y="215" width="100" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-7"/>
+        <text x="275" y="238" text-anchor="middle" font-family="Orbitron" font-size="9" fill="#00d4ff">FFMPEG</text>
+
+        <!-- Other API Services -->
+        <rect x="340" y="215" width="105" height="40" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-7"/>
+        <text x="392.5" y="233" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00d4ff">OTHER API</text>
+        <text x="392.5" y="244" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Services</text>
+
+
+        <!-- ==========================================
+             FRONTEND / AR LAYER (Left) 
+        =========================================== -->
+
+        <!-- AR Authoring -->
+        <rect x="10" y="150" width="140" height="60" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-green delay-9"/>
+        <text x="80" y="172" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00ff9d">AR AUTHORING</text>
+        <text x="80" y="184" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">&amp; Guidance App</text>
+        <text x="80" y="196" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">(Meta Quest 3S)</text>
+
+        <!-- Frontend Console -->
+        <rect x="10" y="230" width="140" height="60" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-green delay-9"/>
+        <text x="80" y="252" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00ff9d">WEB CONSOLE</text>
+        <text x="80" y="264" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Frontend Management</text>
+        <text x="80" y="276" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">(NextJS Web App)</text>
+
+
+        <!-- ==========================================
+             DATABASE & COMPILER LAYER (Right/Bottom) 
+        =========================================== -->
+
+        <!-- Quest DB -->
+        <rect x="490" y="160" width="120" height="60" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-8"/>
+        <text x="550" y="182" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00d4ff">QUEST DB</text>
+        <text x="550" y="194" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Historical Sensor</text>
+        <text x="550" y="206" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Data Store</text>
+
+        <!-- Postgres DB -->
+        <rect x="490" y="290" width="120" height="60" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-8"/>
+        <text x="550" y="312" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00d4ff">POSTGRES</text>
+        <text x="550" y="324" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Backend</text>
+        <text x="550" y="336" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Database</text>
+
+        <!-- Guidance Overlay Compiler -->
+        <rect x="275" y="330" width="130" height="55" rx="3" fill="#131d2e" stroke="#1e2d4a" class="node-cyan delay-8"/>
+        <text x="340" y="352" text-anchor="middle" font-family="Orbitron" font-size="8.5" fill="#00d4ff">GOC COMPILER</text>
+        <text x="340" y="364" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">Guidance Overlay</text>
+        <text x="340" y="376" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#6b7a99">(Fast API)</text>
+
+
+        <!-- ==========================================
+             CONNECTING LINES & ARROWS 
+             (Added 'flow-line' class for animation)
+        =========================================== -->
+
+        <!-- Data Ingestion (Top Row) -->
+        <line class="flow-line" x1="90" y1="40" x2="114" y2="40" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#arrow-orange)" opacity="0.6"/>
+        <line class="flow-line" x1="200" y1="40" x2="224" y2="40" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+        <line class="flow-line" x1="330" y1="40" x2="354" y2="40" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+        
+        <!-- Dynamo out to Lambda 2 -->
+        <path class="flow-line" d="M460,40 L540,40 L540,74" fill="none" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+        
+        <!-- Dynamo out to Predictive Maintenance -->
+        <path class="flow-line" d="M410,70 L410,154" fill="none" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+
+        <!-- Lambda 2 to Backend API -->
+        <path class="flow-line" d="M540,120 L540,135 L445,135 L445,154" fill="none" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+
+        <!-- Backend API to External DBs -->
+        <!-- To Quest DB -->
+        <line class="flow-line" x1="460" y1="190" x2="484" y2="190" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+        <!-- To Postgres DB -->
+        <path class="flow-line" d="M460,260 L475,260 L475,320 L484,320" fill="none" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+
+        <!-- Backend API to GOC Compiler -->
+        <line class="flow-line" x1="340" y1="300" x2="340" y2="324" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+
+        <!-- GOC Compiler to Postgres DB -->
+        <path class="flow-line" d="M405,357 L460,357 L460,335 L484,335" fill="none" stroke="#00d4ff" stroke-width="1.5" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+
+        <!-- Bidirectional App Integrations (Left Side) -->
+        <!-- AR App <-> Backend API -->
+        <line class="flow-line" x1="156" y1="180" x2="204" y2="180" stroke="#00ff9d" stroke-width="1.5" marker-start="url(#arrow-green-rev)" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+        <!-- Frontend Console <-> Backend API -->
+        <line class="flow-line" x1="156" y1="260" x2="204" y2="260" stroke="#00ff9d" stroke-width="1.5" marker-start="url(#arrow-green-rev)" marker-end="url(#arrow-cyan)" opacity="0.6"/>
+
+        <!-- System Architecture Label -->
+        <text x="310" y="405" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#3a4560">──── Master System Architecture Flow ────</text>
       </svg>
     </div>
 
