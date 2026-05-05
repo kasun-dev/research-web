@@ -63,11 +63,11 @@
           <textarea class="form-control" placeholder="Your message here..." id="contactMessage"></textarea>
         </div>
 
-        <!-- This form uses mailto: — to use a real backend, replace action -->
         <button class="btn-primary" onclick="sendMail()">Send Message →</button>
 
-        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:16px;">
-          * This opens your default email client. For a server-side form, integrate with a service like Formspree or EmailJS.
+        <p id="contactStatus" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:12px;" aria-live="polite"></p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:8px;">
+          * Messages are sent securely via EmailJS.
         </p>
       </div>
 
@@ -140,24 +140,7 @@
   </footer>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="../js/main.js"></script>
-<script>
-  function sendMail() {
-    const name = document.getElementById('contactName').value;
-    const email = document.getElementById('contactEmail').value;
-    const subject = document.getElementById('contactSubject').value;
-    const message = document.getElementById('contactMessage').value;
-
-    if (!name || !email || !subject || !message) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
-    const body = encodeURIComponent(`From: ${name} (${email})\n\n${message}`);
-    const subjectEncoded = encodeURIComponent(subject);
-    // Replace with your group's main email
-    window.location.href = `mailto:IT22347558@my.sliit.lk?subject=${subjectEncoded}&body=${body}`;
-  }
-</script>
 </body>
 </html>
